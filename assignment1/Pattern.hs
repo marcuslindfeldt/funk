@@ -29,10 +29,10 @@ match wildcard (p:ps) (s:ss)
 
 singleWildcardMatch, longerWildcardMatch :: Eq a => [a] -> [a] -> Maybe [a]
 singleWildcardMatch (wc:ps) (x:xs)
-	| match wc ps xs /= Nothing = Just []
+	| match wc ps xs /= Nothing = Just [x]
 	| otherwise = Nothing
 
-longerWildcardMatch (wc:ps) (x:xs) = mmap ((++) [x]) $ orElse (singleWildcardMatch (wc:ps) (x:xs)) (match wc (wc:ps) xs)
+longerWildcardMatch (wc:ps) (x:xs) = mmap ((++) [x]) $ match wc (wc:ps) xs
 
 -- Test cases --------------------
 
