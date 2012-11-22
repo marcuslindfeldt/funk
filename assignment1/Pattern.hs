@@ -23,14 +23,12 @@ match _ p [] = Nothing
 match wildcard (p:ps) (s:ss)  
 	| p /= s && p /= wildcard = Nothing
 	| p == s && p /= wildcard = match wildcard ps ss
-	| p == wildcard = orElse (longerWildcardMatch (p:ps) (s:ss)) (singleWildcardMatch (p:ps) (s:ss))
+	| p == wildcard = orElse (singleWildcardMatch (p:ps) (s:ss)) (longerWildcardMatch (p:ps) (s:ss))
  
 -- Helper function to match
 
 singleWildcardMatch, longerWildcardMatch :: Eq a => [a] -> [a] -> Maybe [a]
-singleWildcardMatch (wc:ps) (x:xs)
-	| match wc ps xs /= Nothing = Just [x]
-	| otherwise = Nothing
+singleWildcardMatch (wc:ps) (x:xs) = mmap (\l -> [x]) (match wc ps xs) 
 
 longerWildcardMatch (wc:ps) (x:xs) = mmap ((++) [x]) $ match wc (wc:ps) xs
 
