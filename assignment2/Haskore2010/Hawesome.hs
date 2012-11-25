@@ -19,10 +19,7 @@ type BassStyle = [(Int, Dur)]
 type ChordProgression = [(Music, Dur)]
 type Scale = [KeyName]
 type Chord = Music
-type Key = (KeyName, KeyType)
-
-data KeyType = Major | Minor
-				deriving(Eq)
+type Key = (KeyName, Mode)
 
 -- CANTSTANDS
 cM = chord [ Note (x, 4) hn v | x <- [C, E, G]];
@@ -68,7 +65,7 @@ twinkleFirst = [(cM, wn)]
 hautoBass :: BassStyle -> Key -> ChordProgression -> Music
 hautoBass b k c = undefined
 
-findMajorScale :: KeyName -> Scale -> [Int]
-findMajorScale k s = maybe [] ((!!) majorScales) (elemIndex k s)
+findScale :: Key -> Scale -> [Int]
+findScale k s = maybe [] ((!!) majorScales) (elemIndex (fst k) s)
 
 -- applyScale :: KeyName -> [Int] -> KeyName
