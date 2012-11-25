@@ -1,5 +1,5 @@
 module Hawesome where
-import Haskore
+import Haskore hiding(Key)
 import Data.Ratio
 import Data.List
 
@@ -19,6 +19,10 @@ type BassStyle = [(Int, Dur)]
 type ChordProgression = [(Music, Dur)]
 type Scale = [KeyName]
 type Chord = Music
+type Key = (KeyName, KeyType)
+
+data KeyType = Major | Minor
+				deriving(Eq)
 
 -- CANTSTANDS
 cM = chord [ Note (x, 4) hn v | x <- [C, E, G]];
