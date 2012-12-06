@@ -128,13 +128,10 @@ basicTriad :: Key -> (Pitch, Dur) -> Chord
 basicTriad k p = boostOctave (map ((!!) (scaleForKey (fst p) ionian)) triad)
 
 bestTriad :: Chord -> Chord -> Chord
-bestTriad co cn = p !! (maybe (-1) id (elemIndex (minimum distances) distances))
+bestTriad cn co = p !! (maybe (-1) id (elemIndex (minimum distances) distances))
 	where 
 	p = inversions cn
 	distances = map (distance co) p 
-
-versions :: Chord -> [Chord]
-versions c = concat $ map permutations ((versionsUp c) ++ (versionsDown c))
 
 inversions :: Chord -> [Chord]
 inversions c = (invertUp c) ++ (invertDown c)
@@ -152,20 +149,6 @@ invertDown c
 	| otherwise = [ch] ++ invertDown (ch)
 	where 
 		ch = [((fst (last c)), (snd (last c)) -1)] ++ (init c)
-
-versionsUp :: Chord -> [Chord]
-versionsUp c
-	| maximum (snd (unzip ch)) == 7 = []
-	| otherwise = [ch] ++ (versionsUp ch)
-	where
-		ch = map (pitch.(+2).absPitch) c 
-
-versionsDown :: Chord -> [Chord]
-versionsDown c
-	| minimum (snd (unzip ch)) == 4 = []
-	| otherwise = [ch] ++ (versionsDown ch)
-	where
-		ch = map (pitch.(- 2 +).absPitch) c 
 
 boostOctave :: Chord -> Chord
 boostOctave (p : ps) 
