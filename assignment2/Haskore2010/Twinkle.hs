@@ -13,6 +13,22 @@ import Data.Ratio
 --times  1    m = m
 --times n m = m :+: (times (n - 1) m)
 
+twinkleChords :: ChordProgression
+twinkleChords = [	((C, 3), wn), 
+					((F, 3), hn), ((C, 3), hn), 
+					((G, 3), hn), ((C, 3), hn), 
+					((G, 3), hn), ((C, 3), hn), 
+					
+					((C, 3), hn), ((G, 3), hn),
+					((C, 3), hn), ((G, 3), hn),
+					((C, 3), hn), ((G, 3), hn),
+					((C, 3), hn), ((G, 3), hn),
+
+					((C, 3), wn), 
+					((F, 3), hn), ((C, 3), hn), 
+					((G, 3), hn), ((C, 3), hn), 
+					((G, 3), hn), ((C, 3), hn)  ]
+
 l1 = lmap (fd qn) [c 5, c 5, g 5, g 5, a 5, a 5] :+: g 5 hn v :+: lmap (fd qn) [f 5, f 5, e 5, e 5, d 5, d 5] :+: c 5 hn v
 l2 = lmap (fd qn) [g 5, g 5, f 5, f 5, e 5, e 5] :+: d 5 hn v
 
